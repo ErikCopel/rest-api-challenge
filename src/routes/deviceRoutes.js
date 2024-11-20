@@ -17,3 +17,6 @@ router.get('/:id', getDeviceById);
 router.put('/:id', updateDevice);
 router.delete('/:id', deleteDevice);
 router.get('/search/:brand', searchDeviceByBrand);
+
+
+module.exports = router;

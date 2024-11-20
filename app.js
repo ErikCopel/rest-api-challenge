@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const deviceRoutes = require('./routes/deviceRoutes');
+const deviceRoutes = require('./src/routes/deviceRoutes');
 
 const app = express();
 
