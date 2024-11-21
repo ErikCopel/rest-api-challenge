@@ -1,10 +1,5 @@
 const { Device } = require('../models/deviceModel');
 
-
-const devices = [];
-let idCount = 1;
-
-
 // 1. Add device;
 exports.addDevice = async (req, res) => {
     try {
