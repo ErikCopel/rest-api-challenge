@@ -82,3 +82,8 @@ describe("Error handling tests", () => {
     it("should return 404 for a non-existing device during delete", async () => {
     });    
 });
+
+describe("Route handling tests", () => {
+    it("should return 404 for a non-existing route", async () => {
+    });
+});
