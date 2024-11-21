@@ -38,4 +38,4 @@
 | PUT    | `/api/devices/:id`         | Updates device by ID                          |
 | DELETE | `/api/devices/:id`         | Deletes device by ID                          |
 | GET    | `/api/devices/search/:brand` | Search device by brand                    |
-
+ 
