@@ -82,19 +82,18 @@ describe("Error handling tests", () => {
         expect(response.statusCode).toBe(404);
     });
     // ========== updateDevice ===========
-    it("should return 404 for a non-existing device during update", async () => {
-        const response = await request(app)
-            .put('/api/devices/200')
-            .send({
-                name: 'Pixel',
-                brand: 'Google'
-            });
-        expect(response.statusCode).toBe(404);
-    });
-
     it("should return 400 for a missing name or brand during update", async () => {
+        const createResponse = await request(app)
+            .post('/api/devices')
+            .send({
+                name: 'iPhone',
+                brand: 'Apple'
+            });
+        
+        const deviceId = createResponse.body.id;
+    
         const response = await request(app)
-            .put('/api/devices/1')
+            .put(`/api/devices/${deviceId}`)
             .send({
                 name: 'Pixel'
             });
@@ -102,6 +101,9 @@ describe("Error handling tests", () => {
     });
     // ========== deleteDevice ===========
     it("should return 404 for a non-existing device during delete", async () => {
+        const response = await request(app)
+            .delete('/api/devices/200');
+        expect(response.statusCode).toBe(404);
     });    
 });
 

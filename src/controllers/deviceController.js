@@ -48,12 +48,11 @@ exports.updateDevice = (req, res) => {
         return res.status(404).json({ error: 'device not found' });
     }
     const { name, brand } = req.body;
-    if (name) {
-        device.name = name;
+    if (!name || !brand) {
+        return res.status(400).json({ error: 'name and brand are required' });
     }
-    if (brand) {
-        device.brand = brand;
-    }
+    device.name = name;
+    device.brand = brand;
     res.json(device);
 };
 // 5. Delete a device;
