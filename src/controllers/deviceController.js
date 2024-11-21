@@ -68,4 +68,7 @@ exports.deleteDevice = (req, res) => {
 };
 // 6. Search device by brand;
 exports.searchDeviceByBrand = (req, res) => {
+    const { brand } = req.params;
+    const filteredDevices = devices.filter((device) => device.brand === brand);
+    res.json(filteredDevices);
 };
