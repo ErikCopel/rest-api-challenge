@@ -3,6 +3,16 @@ const app = require('../app');
 
 describe("Device API", () => {
     it("should add a device", async () => {
+        const response = await request(app)
+            .post('/api/devices')
+            .send({
+                name: 'iPhone',
+                brand: 'Apple'
+            });
+        expect(response.statusCode).toBe(201);
+        expect(response.body).toHaveProperty('id');
+        expect(response.body.name).toBe('iPhone');
+        expect(response.body.brand).toBe('Apple');
     });
 
     it("should list all devices", async () => {
