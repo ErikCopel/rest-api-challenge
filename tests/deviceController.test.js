@@ -32,6 +32,16 @@ describe("Device API", () => {
     })
 
     it("should update a device", async () => {
+        const response = await request(app)
+            .put('/api/devices/1')
+            .send({
+                name: 'Pixel',
+                brand: 'Google'
+            });
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty('id');
+        expect(response.body.name).toBe('Pixel');
+        expect(response.body.brand).toBe('Google');
     })
 
     it("should delete a device", async () => {
