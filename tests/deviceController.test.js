@@ -1,5 +1,11 @@
 const request = require('supertest');
 const app = require('../app');
+const { Device } = require('../src/models/deviceModel');
+
+beforeEach(async () => {
+    await Device.destroy({ where: {} });
+    await Device.create({ name: 'iPhone', brand: 'Apple' });
+});
 
 describe("Device API", () => {
     it("should add a device", async () => {
@@ -40,7 +46,6 @@ describe("Device API", () => {
     })
 
     it("should update a device", async () => {
-        // Create a new device
         const createResponse = await request(app)
             .post('/api/devices')
             .send({
@@ -48,9 +53,8 @@ describe("Device API", () => {
                 brand: 'Apple'
             });
 
-        const deviceId = createResponse.body.id; // Get the created device ID
+        const deviceId = createResponse.body.id;
 
-        // Update the device by ID
         const response = await request(app)
             .put(`/api/devices/${deviceId}`)
             .send({
