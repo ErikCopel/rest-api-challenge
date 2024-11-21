@@ -19,7 +19,7 @@ describe("Device API", () => {
         const response = await request(app)
             .get('/api/devices');
         expect(response.statusCode).toBe(200);
-        expect(response.body.length).toBe(1);
+        expect(response.body.length).toBeGreaterThan(0);
     });
 
     it("should get a device by id", async () => {

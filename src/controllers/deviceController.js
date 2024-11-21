@@ -1,31 +1,24 @@
+const { Device } = require('../models/deviceModel');
 
-// Write a REST service that supports the management of a device database.
-// Represented entities
 
-// 1. Device
-//     o Device name
-//     o Device brand
-//     o Creation time
 const devices = [];
 let idCount = 1;
 
-// Supported operations
 
 // 1. Add device;
-exports.addDevice = (req, res) => {
-    console.log(req.body);
-    const { name, brand } = req.body;
-    if (!name || !brand) {
-        return res.status(400).json({ error: 'name and brand are required' });
+exports.addDevice = async (req, res) => {
+    try{
+        const { name, brand } = req.body;
+        if (!name || !brand) {
+            return res.status(400).json({ error: 'name and brand are required' });
+        }
+        const newDevice = await Device.create({ name, brand });
+        res.status(201).json(newDevice);
+
+    } catch(err){
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-    const newDevice = {
-        id: idCount++,
-        name,
-        brand,
-        creationTime: new Date()
-    };
-    devices.push(newDevice);
-    res.status(201).json(newDevice);
 };
 // 2. Get device by identifier;
 exports.getDeviceById = (req, res) => {
@@ -37,8 +30,13 @@ exports.getDeviceById = (req, res) => {
     res.json(device);
 };
 // 3. List all devices;
-exports.listAllDevices = (req, res) => {
-    res.json(devices);
+exports.listAllDevices = async (req, res) => {
+    try{
+        const devices = await Device.findAll();
+        res.status(200).json(devices);
+    } catch(err){
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 };
 // 4. Update device (full and partial);
 exports.updateDevice = (req, res) => {
