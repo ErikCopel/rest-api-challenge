@@ -7,7 +7,7 @@ let idCount = 1;
 
 // 1. Add device;
 exports.addDevice = async (req, res) => {
-    try{
+    try {
         const { name, brand } = req.body;
         if (!name || !brand) {
             return res.status(400).json({ error: 'name and brand are required' });
@@ -15,7 +15,7 @@ exports.addDevice = async (req, res) => {
         const newDevice = await Device.create({ name, brand });
         res.status(201).json(newDevice);
 
-    } catch(err){
+    } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -25,40 +25,39 @@ exports.getDeviceById = async (req, res) => {
     try {
         const { id } = req.params;
         const device = await Device.findByPk(id);
-        
+
         if (!device) {
             return res.status(404).json({ error: 'device not found' });
         }
         res.status(200).json(device);
-        
-    } catch(err){
+
+    } catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
-    
+
 };
 // 3. List all devices;
 exports.listAllDevices = async (req, res) => {
-    try{
+    try {
         const devices = await Device.findAll();
         res.status(200).json(devices);
-    } catch(err){
+    } catch (err) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 // 4. Update device (full and partial);
-exports.updateDevice = (req, res) => {
-    const { id } = req.params;
-    const device = devices.find((device) => device.id === parseInt(id));
-    if (!device) {
-        return res.status(404).json({ error: 'device not found' });
+exports.updateDevice = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [updated] = await Device.update(req.body, { where: { id } });
+        if (!updated) {
+            return res.status(404).json({ message: 'Dispositivo não encontrado' });
+        }
+        const updatedDevice = await Device.findByPk(id);
+        res.status(200).json(updatedDevice);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao atualizar dispositivo', error: error.message });
     }
-    const { name, brand } = req.body;
-    if (!name || !brand) {
-        return res.status(400).json({ error: 'name and brand are required' });
-    }
-    device.name = name;
-    device.brand = brand;
-    res.json(device);
 };
 // 5. Delete a device;
 exports.deleteDevice = (req, res) => {
