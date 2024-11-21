@@ -29,6 +29,12 @@ exports.addDevice = (req, res) => {
 };
 // 2. Get device by identifier;
 exports.getDeviceById = (req, res) => {
+    const { id } = req.params;
+    const device = devices.find((device) => device.id === parseInt(id));
+    if (!device) {
+        return res.status(404).json({ error: 'device not found' });
+    }
+    res.json(device);
 };
 // 3. List all devices;
 exports.listAllDevices = (req, res) => {
