@@ -119,5 +119,8 @@ describe("Error handling tests", () => {
 
 describe("Route handling tests", () => {
     it("should return 404 for a non-existing route", async () => {
+        const response = await request(app)
+            .get('/api/non-existing-route');
+        expect(response.statusCode).toBe(404);
     });
 });
