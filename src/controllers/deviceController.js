@@ -58,6 +58,13 @@ exports.updateDevice = (req, res) => {
 };
 // 5. Delete a device;
 exports.deleteDevice = (req, res) => {
+    const { id } = req.params;
+    const index = devices.findIndex((device) => device.id === parseInt(id));
+    if (index === -1) {
+        return res.status(404).json({ error: 'device not found' });
+    }
+    devices.splice(index, 1);
+    res.status(204).end();
 };
 // 6. Search device by brand;
 exports.searchDeviceByBrand = (req, res) => {
