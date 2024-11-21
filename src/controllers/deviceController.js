@@ -49,12 +49,21 @@ exports.listAllDevices = async (req, res) => {
 exports.updateDevice = async (req, res) => {
     try {
         const { id } = req.params;
-        const [updated] = await Device.update(req.body, { where: { id } });
-        if (!updated) {
-            return res.status(404).json({ message: 'Dispositivo não encontrado' });
+        const { name, brand } = req.body;
+
+        if (!name || !brand) {
+            return res.status(400).json({ message: 'Missing Name or Brand' });
         }
-        const updatedDevice = await Device.findByPk(id);
-        res.status(200).json(updatedDevice);
+
+        const device = await Device.findByPk(id);
+        if (!device) {
+            return res.status(404).json({ message: 'Device not found' });
+        }
+
+        device.name = name;
+        device.brand = brand;
+        await device.save();
+        res.status(200).json(device);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao atualizar dispositivo', error: error.message });
     }
