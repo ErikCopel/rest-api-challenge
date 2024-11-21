@@ -77,6 +77,9 @@ describe("Error handling tests", () => {
     });
     // ========== getDeviceById ===========
     it("should return 404 for a non-existing device whenn Getting Device By ID", async () => {
+        const response = await request(app)
+            .get('/api/devices/200');
+        expect(response.statusCode).toBe(404);
     });
     // ========== updateDevice ===========
     it("should return 404 for a non-existing device during update", async () => {
