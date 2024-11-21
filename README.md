@@ -1,16 +1,30 @@
-How to execute
+# rest-api-challenge
 
-Clone this repo:
+## How to execute
+
+## Using npm
+
+### Clone this repo:
 `git clone https://github.com/ErikCopel/rest-api-challenge.git`
 `cd rest-api-challenge`
 
-Intall dependencies:
+### Intall dependencies:
 `npm install`
 
-Init server:
+### Init server:
 `npm start`
 
-API routes
+## Using docker
+
+### Build image
+
+`docker build -t rest-api-challenge`
+
+### Run image
+
+`docker run -p 3000:3000 rest-api-challenge`
+
+### API routes
 
 | Method | Route                   | Description                                      |
 |--------|----------------------------|-----------------------------------------------|
