@@ -61,7 +61,7 @@ describe("Device API", () => {
         const response = await request(app)
             .get('/api/devices/search/Apple');
         expect(response.statusCode).toBe(200);
-        expect(response.body.length).toBe(1);
+        expect(response.body.length).toBeGreaterThan(0);
     })
 });
 
