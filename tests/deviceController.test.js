@@ -64,3 +64,21 @@ describe("Device API", () => {
         expect(response.body.length).toBe(1);
     })
 });
+
+describe("Error handling tests", () => {
+    // ========== addDevice =========== 
+    it("should return 400 for a missing name or brand when Adding Device", async () => {
+    });
+    // ========== getDeviceById ===========
+    it("should return 404 for a non-existing device whenn Getting Device By ID", async () => {
+    });
+    // ========== updateDevice ===========
+    it("should return 404 for a non-existing device during update", async () => {
+    });
+
+    it("should return 400 for a missing name or brand during update", async () => {
+    });
+    // ========== deleteDevice ===========
+    it("should return 404 for a non-existing device during delete", async () => {
+    });    
+});
