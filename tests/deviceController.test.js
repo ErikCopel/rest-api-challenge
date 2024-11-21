@@ -68,6 +68,12 @@ describe("Device API", () => {
 describe("Error handling tests", () => {
     // ========== addDevice =========== 
     it("should return 400 for a missing name or brand when Adding Device", async () => {
+        const response = await request(app)
+            .post('/api/devices')
+            .send({
+                name: 'iPhone'
+            });
+        expect(response.statusCode).toBe(400);
     });
     // ========== getDeviceById ===========
     it("should return 404 for a non-existing device whenn Getting Device By ID", async () => {
