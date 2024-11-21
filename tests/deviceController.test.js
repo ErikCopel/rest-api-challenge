@@ -23,8 +23,16 @@ describe("Device API", () => {
     });
 
     it("should get a device by id", async () => {
+        const createResponse = await request(app)
+            .post('/api/devices')
+            .send({
+                name: 'iPhone',
+                brand: 'Apple'
+            });
+
+        const deviceId = createResponse.body.id;
         const response = await request(app)
-            .get('/api/devices/1');
+            .get(`/api/devices/${deviceId}`);
         expect(response.statusCode).toBe(200);
         expect(response.body).toHaveProperty('id');
         expect(response.body.name).toBe('iPhone');
@@ -89,9 +97,9 @@ describe("Error handling tests", () => {
                 name: 'iPhone',
                 brand: 'Apple'
             });
-        
+
         const deviceId = createResponse.body.id;
-    
+
         const response = await request(app)
             .put(`/api/devices/${deviceId}`)
             .send({
@@ -114,7 +122,7 @@ describe("Error handling tests", () => {
         const response = await request(app)
             .delete('/api/devices/200');
         expect(response.statusCode).toBe(404);
-    });    
+    });
 });
 
 describe("Route handling tests", () => {
