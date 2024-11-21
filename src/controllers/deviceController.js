@@ -21,13 +21,20 @@ exports.addDevice = async (req, res) => {
     }
 };
 // 2. Get device by identifier;
-exports.getDeviceById = (req, res) => {
-    const { id } = req.params;
-    const device = devices.find((device) => device.id === parseInt(id));
-    if (!device) {
-        return res.status(404).json({ error: 'device not found' });
+exports.getDeviceById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const device = await Device.findByPk(id);
+        
+        if (!device) {
+            return res.status(404).json({ error: 'device not found' });
+        }
+        res.status(200).json(device);
+        
+    } catch(err){
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-    res.json(device);
+    
 };
 // 3. List all devices;
 exports.listAllDevices = async (req, res) => {
