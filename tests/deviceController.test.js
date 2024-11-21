@@ -23,6 +23,12 @@ describe("Device API", () => {
     });
 
     it("should get a device by id", async () => {
+        const response = await request(app)
+            .get('/api/devices/1');
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty('id');
+        expect(response.body.name).toBe('iPhone');
+        expect(response.body.brand).toBe('Apple');
     })
 
     it("should update a device", async () => {
