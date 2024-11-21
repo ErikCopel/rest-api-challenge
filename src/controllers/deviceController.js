@@ -60,14 +60,17 @@ exports.updateDevice = async (req, res) => {
     }
 };
 // 5. Delete a device;
-exports.deleteDevice = (req, res) => {
-    const { id } = req.params;
-    const index = devices.findIndex((device) => device.id === parseInt(id));
-    if (index === -1) {
-        return res.status(404).json({ error: 'device not found' });
+exports.deleteDevice = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await Device.destroy({ where: { id } });
+        if (!deleted) {
+            return res.status(404).json({ message: 'Dispositivo não encontrado' });
+        }
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao deletar dispositivo', error: error.message });
     }
-    devices.splice(index, 1);
-    res.status(204).end();
 };
 // 6. Search device by brand;
 exports.searchDeviceByBrand = (req, res) => {
