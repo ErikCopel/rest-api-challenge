@@ -40,8 +40,19 @@ describe("Device API", () => {
     })
 
     it("should update a device", async () => {
+        // Create a new device
+        const createResponse = await request(app)
+            .post('/api/devices')
+            .send({
+                name: 'iPhone',
+                brand: 'Apple'
+            });
+
+        const deviceId = createResponse.body.id; // Get the created device ID
+
+        // Update the device by ID
         const response = await request(app)
-            .put('/api/devices/1')
+            .put(`/api/devices/${deviceId}`)
             .send({
                 name: 'Pixel',
                 brand: 'Google'
@@ -50,7 +61,7 @@ describe("Device API", () => {
         expect(response.body).toHaveProperty('id');
         expect(response.body.name).toBe('Pixel');
         expect(response.body.brand).toBe('Google');
-    })
+    });
 
     it("should delete a device", async () => {
         const createResponse = await request(app)
@@ -60,7 +71,7 @@ describe("Device API", () => {
                 brand: 'Apple'
             });
 
-        const deviceId = createResponse.body.id; 
+        const deviceId = createResponse.body.id;
 
         const response = await request(app)
             .delete(`/api/devices/${deviceId}`);
