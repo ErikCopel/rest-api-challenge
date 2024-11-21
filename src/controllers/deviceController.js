@@ -73,8 +73,12 @@ exports.deleteDevice = async (req, res) => {
     }
 };
 // 6. Search device by brand;
-exports.searchDeviceByBrand = (req, res) => {
-    const { brand } = req.params;
-    const filteredDevices = devices.filter((device) => device.brand === brand);
-    res.json(filteredDevices);
+exports.searchDeviceByBrand = async (req, res) => {
+    try {
+        const { brand } = req.params;
+        const devices = await Device.findAll({ where: { brand } });
+        res.status(200).json(devices);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar dispositivos pela marca', error: error.message });
+    }
 };
