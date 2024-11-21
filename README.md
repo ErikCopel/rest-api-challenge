@@ -5,7 +5,7 @@
 ## Using npm
 
 ### Clone this repo:
-`git clone https://github.com/ErikCopel/rest-api-challenge.git`
+`git clone https://github.com/ErikCopel/rest-api-challenge.git` <br />
 `cd rest-api-challenge`
 
 ### Intall dependencies:
@@ -18,15 +18,15 @@
 
 ### Build image
 
-`docker build -t rest-api-challenge`
+```sudo docker build -t rest-api-challenge .```
 
 ### Run image
 
-`docker run -p 3000:3000 rest-api-challenge`
+```sudo docker run -p 3000:3000 rest-api-challenge```
 
 ### Test API
 
-`sudo docker run -it my-node-api npm test`
+```sudo docker run -it my-node-api npm test```
 
 ### API routes
 
