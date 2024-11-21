@@ -45,6 +45,9 @@ describe("Device API", () => {
     })
 
     it("should delete a device", async () => {
+        const response = await request(app)
+            .delete('/api/devices/1');
+        expect(response.statusCode).toBe(204);
     })
 
     it("should search a device by brand", async () => {
