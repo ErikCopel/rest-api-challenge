@@ -99,6 +99,16 @@ describe("Error handling tests", () => {
             });
         expect(response.statusCode).toBe(400);
     });
+    it("should return 404 for a non-existing device during update", async () => {
+        const response = await request(app)
+            .put('/api/devices/200')
+            .send({
+                name: 'Pixel',
+                brand: 'Google'
+            });
+        expect(response.statusCode).toBe(404);
+    });
+
     // ========== deleteDevice ===========
     it("should return 404 for a non-existing device during delete", async () => {
         const response = await request(app)
