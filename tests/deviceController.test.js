@@ -53,10 +53,19 @@ describe("Device API", () => {
     })
 
     it("should delete a device", async () => {
+        const createResponse = await request(app)
+            .post('/api/devices')
+            .send({
+                name: 'iPhone',
+                brand: 'Apple'
+            });
+
+        const deviceId = createResponse.body.id; 
+
         const response = await request(app)
-            .delete('/api/devices/1');
+            .delete(`/api/devices/${deviceId}`);
         expect(response.statusCode).toBe(204);
-    })
+    });
 
     it("should search a device by brand", async () => {
         await request(app)
