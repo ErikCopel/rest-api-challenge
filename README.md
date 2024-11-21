@@ -24,6 +24,10 @@
 
 `docker run -p 3000:3000 rest-api-challenge`
 
+### Test API
+
+`sudo docker run -it my-node-api npm test`
+
 ### API routes
 
 | Method | Route                   | Description                                      |
