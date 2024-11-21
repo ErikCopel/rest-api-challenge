@@ -42,6 +42,19 @@ exports.listAllDevices = (req, res) => {
 };
 // 4. Update device (full and partial);
 exports.updateDevice = (req, res) => {
+    const { id } = req.params;
+    const device = devices.find((device) => device.id === parseInt(id));
+    if (!device) {
+        return res.status(404).json({ error: 'device not found' });
+    }
+    const { name, brand } = req.body;
+    if (name) {
+        device.name = name;
+    }
+    if (brand) {
+        device.brand = brand;
+    }
+    res.json(device);
 };
 // 5. Delete a device;
 exports.deleteDevice = (req, res) => {
