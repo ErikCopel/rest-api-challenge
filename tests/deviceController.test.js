@@ -16,6 +16,10 @@ describe("Device API", () => {
     });
 
     it("should list all devices", async () => {
+        const response = await request(app)
+            .get('/api/devices');
+        expect(response.statusCode).toBe(200);
+        expect(response.body.length).toBe(1);
     });
 
     it("should get a device by id", async () => {
