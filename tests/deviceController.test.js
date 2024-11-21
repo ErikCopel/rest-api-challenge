@@ -51,5 +51,16 @@ describe("Device API", () => {
     })
 
     it("should search a device by brand", async () => {
+        await request(app)
+            .post('/api/devices')
+            .send({
+                name: 'iPhone',
+                brand: 'Apple'
+            });
+
+        const response = await request(app)
+            .get('/api/devices/search/Apple');
+        expect(response.statusCode).toBe(200);
+        expect(response.body.length).toBe(1);
     })
 });
